@@ -14,35 +14,36 @@ public class StoreCredit {
 	
 	public static void setFile() throws IOException{
 		Util.setInputFile(
-				Paths.get("/Users/alejandroaguilar/Documents/codejam/Store Credit/"
-						+ "src/com/aaguilar/code/jam/storecredit/example", "exampleInput"));
+				Paths.get("/Users/alejandroaguilar/googlecodejam/"
+						+ "src/com/aaguilar/code/jam/storecredit/example",
+						"A-large-practice.in"));
 	}
 
 	public static void resolveCases(List<String> storeCreditFile ){
-		int cases = 0;
-		cases = Integer.parseInt(storeCreditFile.get(0));
-		System.out.println("Cases: "+cases);
-		if(cases == 0){
-			System.out.println("No tiene casos");
-		}else{
-			for(int noCase = 0 ; noCase < cases; noCase++){
-				int initLine = noCase*3+1;
-				for(int actualCase = 0; actualCase < 3 ; actualCase++){
-					int credit = Integer.parseInt(storeCreditFile.get(initLine));
-					String[] items = storeCreditFile.get(initLine+2).split(" ");
-					for(String item : items){
-						int count = 1;
-						for(int iterator = count ; iterator < items.length; iterator++){
-							int sum = Integer.parseInt(items[iterator])+Integer.parseInt(item);
-							if(credit == sum){
-								System.out.println("Case #"+(noCase+1)+":"+Integer.parseInt(item)+" "+ items[iterator]);
-							}
-							count++;
-						}
+		int numCases = Integer.parseInt(storeCreditFile.get(0));
+		int actualLineCase = 1;
+		int credit = 0;
+		int noItems = 0;
+		int priceAddsUp = 0;
+		int itemOne = 0;
+		int itemTwo = 0;
+		
+		for (int cases = 1; cases <= numCases; cases++ ){
+			credit = Integer.parseInt(storeCreditFile.get(actualLineCase));
+			noItems = Integer.parseInt(storeCreditFile.get(actualLineCase+1));
+			String[] items = storeCreditFile.get(actualLineCase+2).split(" ");
+			for(int itemBase = noItems-1; itemBase > 0 ; itemBase--){
+				for(int itemAux = itemBase-1; itemAux >= 0; itemAux--){
+					itemOne = itemBase+1;
+					itemTwo = itemAux+1;
+					priceAddsUp = Integer.parseInt(items[itemBase]) + 
+							Integer.parseInt(items[itemAux]);
+					if(priceAddsUp == credit){
+						System.out.println("Case #"+cases+": "+itemTwo+" "+itemOne);
 					}
-					
 				}
-			}
+			}	
+			actualLineCase+=3;
 		}
 	}
 }
